@@ -29,5 +29,5 @@ if (move_uploaded_file($_FILES["file"]["tmp_name"], 'images/photos/'.$_FILES["fi
     echo "Файл 2 не скопирован";
 }
 
-$image = imagecreatefrompng($photoPath);
+$image = imagecreatefromjpeg($photoPath);
 
