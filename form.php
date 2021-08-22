@@ -5,8 +5,9 @@ $inputName = "photo";
 $frameNames = ["OptionTypeImage.png", "OptionTypeImage (1).png", "OptionTypeImage (2).png", "OptionTypeImage (3).png", "OptionTypeImage (4).png", "OptionTypeImage (5).png", "OptionTypeImage (6).png"];
 $framesDir = "images/frames/";
 
-$padding = 5;
-$gap = 40;
+$gap = 40;  // Расстояния между блоками с картинками и текстом
+$nameMargin = 10;  // Отступ от текста сверху
+$fontSize = 40;  // Размер текста в пикселях(?)
 
 
 
@@ -25,16 +26,10 @@ function printbr($str) {
     echo "<br><br>";
 }
 
+// printbr($_FILES);
 
-// $frameImage = imagecreatefrompng($framesDir . "OptionTypeImage.png");
 
-// $frameWidth = 0;
-// do {
-//     $frameWidth++;
-// } while (imagecolorat($frameImage, 40, $frameWidth) < 2130706400);
-
-// printbr($frameWidth);
-
+$frameImage = imagecreatefrompng($framesDir . "OptionTypeImage.png");
 
 
 if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES[$inputName]["name"])) {
@@ -48,7 +43,7 @@ if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES
 
 
 foreach ($frameNames as $frameName) {
-    // Получение разрешения текущей рамки
+    // Получение разрешения текущей рамки - это и будет размер итоговой картинки
     $frameDim = getimagesize($framesDir . $frameName);
 
     // Получение разрешения загруженной картинки
@@ -98,9 +93,9 @@ foreach ($frameNames as $frameName) {
     while (imagecolorat($frameImage, 40, $frameWidth) < 2130706400) {
         $frameWidth++;
     };
-    $frameWidth -= 2; // Отнимаю погрешность 2 пикселя
+    // $frameWidth -= 2; // Отнимаю погрешность 2 пикселя
 
-    printbr($frameWidth);
+    // printbr($frameWidth);
     
 
     // Расчёт разрешения для уменьшенной картинки, чтобы она полностью умещалась в пустом поле рамки
