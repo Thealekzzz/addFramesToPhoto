@@ -40,4 +40,4 @@ $(document).ready(() => {
 
 )
 
-console.log(Math.round(7 / 2));
+// console.log(Math.round(7 / 2));

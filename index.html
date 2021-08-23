@@ -4,15 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="main.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
     <title>Добавить рамку</title>
 </head>
 <body>
+    <main>
+        <div class="leftSide">
+            <div class="photoContainer">
+                <h2>Фото</h2>
+                Фото
+            </div>
+
+            <div class="framesContainer">
+
+            </div>
+
+            <div class="sizeContainer">
+
+            </div>
+
+            <button class="submitButton" type="button">Отправить</button>
+        </div>
+
+        <div class="rightSide">
+            
+        </div>
+    </main>
     <form action="form.php" method="post" enctype="multipart/form-data">
         <input type="file" name="photo" id="photoInput">
-        <!-- <input type="submit" value="ОТПРАВИТЬ"> -->
-        <button class="submitButton" type="button">Отправить</button>
 
     </form>
     
