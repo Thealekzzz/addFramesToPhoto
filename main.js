@@ -19,22 +19,22 @@ $(document).ready(() => {
             // НЕ ВЫБРАНЫ ФАЙЛЫ И НАЖАТА КНОПКА
         }
 
-        formData
+        
         console.log(formData);
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: "form.php",
-        //     data: formData,
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     success: (data) => {
-        //         // console.log(data);
-        //         // data - тут хранится всё что мы передали из php
-        //     },
+        $.ajax({
+            type: "POST",
+            url: "form.php",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+                // console.log(data);
+                // data - тут хранится всё что мы передали из php
+            },
 
-        // })
+        })
     })
 }
 
