@@ -1,7 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* text-decoration: none; */
+}
+
 body, h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
 }
 
 main {
-    margin: 50px, 60px;
+    padding: 50px 60px;
+    display: flex;
+    width: 100vw;
+    /* height: 100vh; */
+}
+
+ip {
+    color: #444;
+    font-size: 10px;
+}
+
+.leftSide {
+    width: 335px;
+    min-width: 335px;
+}
+
+.rightSide {
+    display: flex;
+    align-items: center;
+}
+
+.photoContainer, .framesContainer, .sizeContainer, .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+button {
+    width: 100%;
+    padding: 15px 0;
+    background: #5875AD;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    transition: background .2s;
+    cursor: pointer;
+}
+
+button:hover { 
+    background: #4d69a0;
+}
+
+a {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+
+    text-decoration: none;
+}
+
+.imageContainer {
+    height: 400px;
+    width: 700px;
+    margin: auto 40px;
+    background: url("images/results/res.jpg") left no-repeat;
+    background-size: contain;
 }

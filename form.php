@@ -1,6 +1,5 @@
 <?php
-// var_dump($_FILES);
-echo "<br>";
+
 $inputName = "photo";
 $frameNames = ["OptionTypeImage.png", "OptionTypeImage (1).png", "OptionTypeImage (2).png", "OptionTypeImage (3).png", "OptionTypeImage (4).png", "OptionTypeImage (5).png", "OptionTypeImage (6).png"];
 $framesDir = "images/frames/";
@@ -8,7 +7,6 @@ $framesDir = "images/frames/";
 $gap = 40;  // Расстояния между блоками с картинками и текстом
 $nameMargin = 10;  // Отступ от текста сверху
 $fontSize = 40;  // Размер текста в пикселях(?)
-
 
 
 function print_files() {
@@ -21,15 +19,11 @@ function print_files() {
 }
 
 function printbr($str) {
-    echo "<br><br>";
-    var_dump($str);
-    echo "<br><br>";
+    var_dump("Собственный вывод: " . $str);
 }
 
-// printbr($_FILES);
 
-
-$frameImage = imagecreatefrompng($framesDir . "OptionTypeImage.png");
+// $frameImage = imagecreatefrompng($framesDir . "OptionTypeImage.png");
 
 
 if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES[$inputName]["name"])) {
@@ -38,7 +32,7 @@ if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES
     $photoType = mime_content_type($photoPath);
     // echo "Файл скопирован в " . $photoPath;
 } else {
-    echo "Файл не скопирован";
+    // echo "Файл не скопирован";
 }
 
 
@@ -94,8 +88,6 @@ foreach ($frameNames as $frameName) {
         $frameWidth++;
     };
     // $frameWidth -= 2; // Отнимаю погрешность 2 пикселя
-
-    // printbr($frameWidth);
     
 
     // Расчёт разрешения для уменьшенной картинки, чтобы она полностью умещалась в пустом поле рамки
@@ -117,9 +109,6 @@ foreach ($frameNames as $frameName) {
 
     }
 
-    // printbr($offsetCroppedDim);
-    // printbr($frameWidth);
-
     
     // Добавление загруженной картинки (предварительно изменив её размер)
     imagecopyresized($blankImage, $uploadedPhoto, $offsetCroppedDim[0], $offsetCroppedDim[1], 0, 0, $uploadedPhotoCroppedDim[0], $uploadedPhotoCroppedDim[1], $uploadedPhotoDim[0], $uploadedPhotoDim[1]);
@@ -137,21 +126,5 @@ foreach ($frameNames as $frameName) {
     imagedestroy($uploadedPhoto);
 }
 
-
-
-
-// $image = imagecreatefromjpeg($photoPath);
-// $src_image = imagecreatefromjpeg($photoPath2);
-
-// $image_dim = getimagesize($photoPath);
-// $src_dim = getimagesize($photoPath2);
-
-// imagecopy($image, $src_image, 50, 50, 0, 0, $src_dim[0], $src_dim[1]);
-
-// imagejpeg($image, 'res.jpg');
-
-// imagedestroy($image);
-// imagedestroy($src_image);
-
-// echo "<img src='res.jpg'>";
+echo $photoPath;
 

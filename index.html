@@ -20,26 +20,39 @@
         <div class="leftSide">
             <div class="photoContainer">
                 <h2>Фото</h2>
-                Фото
+                <input type="file" name="photo" id="photoInput">
             </div>
 
             <div class="framesContainer">
+                <h2>Рамки</h2>
+                <ip>Блок в разработке</ip>
+                <div class="framesList">
+                    
+                </div>
 
             </div>
 
-            <div class="sizeContainer">
+            <!-- <div class="sizeContainer">
+                <h2>Размер и ориентация</h2>
+
+            </div> -->
+
+            <div class="buttonsContainer">
+                <button class="submitButton" type="button">Сгенерировать</button>
+                <button class="downloadButton" hidden type="button"><a href="images/results/res.jpg" id="download" download>Скачать</a></button>
+                
+                <button class="deleteFiles">DEBUG</button>
 
             </div>
-
-            <button class="submitButton" type="button">Отправить</button>
         </div>
 
         <div class="rightSide">
-            
+            <div class="imageContainer">
+                
+            </div>
         </div>
     </main>
     <form action="form.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="photo" id="photoInput">
 
     </form>
     

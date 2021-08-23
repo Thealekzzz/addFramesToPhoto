@@ -1,4 +1,4 @@
 <?php
 
-echo "Я в пхп";
-var_dump($_FILES);
+unlink("images/results/IMG5522_OptionTypeImage (2).jpg");
+echo "Файл удалён";
