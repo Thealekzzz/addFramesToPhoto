@@ -10,7 +10,10 @@ $(document).ready(() => {
         if (photoInput.files.length != 0) {
             formData = new FormData()
             formData.append("photo", photoInput.files[0])
+            formData.append("size", 3)
+            formData.append("orientation", 0)
             console.log("Файлы найдены");
+            console.log(formData);
             
             // $.each(photoInput.files, (i, file) => {
             //     console.log(i);
@@ -27,18 +30,20 @@ $(document).ready(() => {
 
                 beforeSend: () => {
                     console.log("Запрос отправлен");
-                    downloadButton.attr("hidden", true)
+                    $(".submitButton").attr('disabled', true)
+
+                    // downloadButton.attr("hidden", true)
 
                 },
 
                 success: (data) => {
                     console.log("Запрос отработал");
                     console.log(data);
-                    // data - тут хранится всё что мы передали из php
+                    $(".submitButton").attr('disabled', false)
                     // downloadButton.removeAttr("hidden")
-                    $("#download")[0].click()
-                    console.log('$("#download"): ', $("#download"));
-                },
+                    
+                    // $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+                }, 
 
             })
         } else {
@@ -49,22 +54,28 @@ $(document).ready(() => {
     })
 
     $(".deleteFiles").click(() => {
+        formData = new FormData()
+        formData.append("size", 3)
+        formData.append("orientation", 1)
+
         $.ajax({
             type: "POST",
             url: "test.php",
-            data: "Ало",
+            data: formData,
             cache: false,
             contentType: false,
             processData: false,
 
             beforeSend: () => {
                 console.log("Запрос отправлен");
+                $(".submitButton").attr('disabled')
 
             },
 
             success: (data) => {
                 console.log("Запрос отработал");
                 console.log(data);
+                $(".submitButton").attr('disabled', false)
                 // data - тут хранится всё что мы передали из php
             },
 
