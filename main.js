@@ -41,6 +41,41 @@ function removeLastUploadedFiles(file) {
 
 const frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 
+let sizeNum = 1
+let orientationNum = 0;
+
+const pickButton = $(".pickPhoto")
+const sizeButtons = $("[data-size]")
+const orientationButtons = $("[data-orientation]")
+
+sizeButtons.each(i => {
+    sizeButtons[i].addEventListener("click", () => {
+        sizeButtons[sizeNum].removeAttribute("active")
+        sizeButtons[i].setAttribute("active", true)
+        sizeNum = sizeButtons[i].getAttribute("data-size");
+
+    })
+})
+
+orientationButtons.each(i => {
+    orientationButtons[i].addEventListener("click", () => {
+        orientationButtons[orientationNum].removeAttribute("active")
+        orientationButtons[i].setAttribute("active", true)
+        orientationNum = orientationButtons[i].getAttribute("data-orientation");
+
+    })
+})
+
+$(".pickPhoto").click(() => {
+    $("#photoInput").click()
+})
+
+$("#photoInput").change(() => {
+    $(".pickPhoto")[0].innerText = $("#photoInput")[0].files[0].name
+    // console.log($("#photoInput")[0].files[0].name);
+
+})
+
 
 $(document).ready(() => {
     $(".submitButton").click(() => {
@@ -54,8 +89,8 @@ $(document).ready(() => {
         if (photoInput.files.length != 0) {
             formData = new FormData()
             formData.append("photo", photoInput.files[0])
-            formData.append("size", 3)
-            formData.append("orientation", 0)
+            formData.append("size", sizeNum)
+            formData.append("orientation", orientationNum)
 
 
             $.ajax({
@@ -89,8 +124,11 @@ $(document).ready(() => {
                     }, 1000);
 
                     $(".imageContainer")
-                    .css('background', "url(images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FINAL.jpg) left no-repeat")
+                    .css('background', "")
+                    .css('background', "url(images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FINAL.jpg) center no-repeat")
                     .css('background-size', 'contain')
+
+                    $(".imageContainer span").attr("hidden", true)
                     
                     $("#download").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FINAL.jpg")
                     $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки

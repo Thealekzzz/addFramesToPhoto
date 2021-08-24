@@ -7,10 +7,11 @@ $framesSize = ["20x16", "24x18", "36x24", "40x30"];
 $framesOrientation = ["vert", "horiz"];
 
 $uploadedFilename = "";  // Позже записываю название загруженного файла без расширения
+$fontPath = __DIR__ . "./Montserrat-ExtraBold.ttf";
 
 $gap = 20;  // Расстояния между блоками с картинками и текстом
 $nameMargin = 10;  // Отступ от текста сверху
-$fontSize = 40;  // Размер текста в пикселях(?)
+$fontSize = 12;  // Размер текста в пикселях(?)
 
 $count = 0;  // Счетчик количества записанный в финальный файл картинок для корректной итоговой записи
 
@@ -169,7 +170,13 @@ foreach ($frameNames as $frameName) {
 
     }
 
-    
+
+    // Создание переменных для текста
+    $color = imagecolorallocate($finalFile, 30, 30, 30);
+    $text = strtoupper(pathinfo($frameName)['filename']); // Получаю название рамки без расширения
+
+
+    imagettftext($finalFile, $fontSize, 0, $gap + ($gap + $frameDefaultDim[0]) * ($count % 4), ($gap + $frameDefaultDim[1] + $fontSize + $nameMargin) * (1 + floor($count / 4)), $color, $fontPath, $text);
 
     // Добавление загруженной картинки (предварительно изменив её размер)
     imagecopyresized($blankImage, $uploadedPhoto, $offsetCroppedDim[0], $offsetCroppedDim[1], 0, 0, $uploadedPhotoCroppedDim[0], $uploadedPhotoCroppedDim[1], $uploadedPhotoDim[0], $uploadedPhotoDim[1]);

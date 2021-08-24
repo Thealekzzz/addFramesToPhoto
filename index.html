@@ -17,14 +17,15 @@
 </head>
 <body>
     <nav>
-        <span>Добавить рамки к фото</span>
+        <span>Добавление рамок к фото</span>
     </nav>
 
     <main>
         <div class="leftSide">
             <div class="photoContainer">
                 <h2>Фото</h2>
-                <input type="file" name="photo" id="photoInput">
+                <div class="button pickPhoto">Добавить</div>
+                <input type="file" name="photo" id="photoInput" hidden>
             </div>
 
             <!-- <div class="framesContainer">
@@ -47,25 +48,42 @@
             <div class="orientationContainer">
                 <h2>Ориентация</h2>
 
+                <div class="orientation">
+                    <div class="button" data-orientation="0" active>Вертикально</div>
+                    <div class="button" data-orientation="1">Горизонтально</div>
+                </div>
+
             </div>
 
             <div class="sizeContainer">
                 <h2>Размер</h2>
 
+                <div class="size">
+                    <div class="button" data-size="0">16x20</div>
+                    <div class="button" data-size="1" active>18x24</div>
+                    <div class="button" data-size="2">24x36</div>
+                    <div class="button" data-size="3">30x40</div>
+                </div>
+
             </div>
 
             <div class="buttonsContainer">
-                <button class="submitButton" type="button">Сгенерировать</button>
+                <button class="submitButton button" type="button">Сгенерировать</button>
                 <button class="downloadButton" hidden type="button"><a href="images/results/res.jpg" id="download" download>Скачать</a></button>
                 
                 <!-- <button class="deleteFiles">DEBUG</button> -->
 
             </div>
+
+            <div class="contactInfo">
+                <div>Crafted with love by</div>
+                <div><a href="https://vk.com/thealekzzz" target="_blank">Kuznetsov Aleksey</a></div>
+            </div>
         </div>
 
         <div class="rightSide">
             <div class="imageContainer">
-                
+                <span>Итоговое изображение</span>
             </div>
         </div>
     </main>
