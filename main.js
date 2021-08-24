@@ -12,11 +12,6 @@ function getFileextention(str) {
 }
 
 
-function getFileInfo(str) {
-    return JSON.stringify({"name": getFilename(str), "extension": getFileextention(str)})
-}
-
-
 function removeLastUploadedFiles(file) {
     removingData = new FormData()
     removingData.append("filename", getFilename(file))
@@ -42,6 +37,9 @@ function removeLastUploadedFiles(file) {
 
     })
 }
+
+
+const frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 
 
 $(document).ready(() => {

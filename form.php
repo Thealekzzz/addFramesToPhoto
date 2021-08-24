@@ -200,5 +200,3 @@ imagejpeg($finalFile, $resultName);
 // echo $uploadedFilename; // Отправляем только название файла
 
 imagedestroy($finalFile);
-
-
