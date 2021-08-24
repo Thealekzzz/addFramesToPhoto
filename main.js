@@ -1,3 +1,49 @@
+function getFilename(str) {
+    // Возвращает имя файла без .расширение
+
+    return str.substr(0, str.lastIndexOf("."));
+}
+
+
+function getFileextention(str) {
+    // Возвращает только расширение файла
+
+    return str.substr(str.lastIndexOf("."));
+}
+
+
+function getFileInfo(str) {
+    return JSON.stringify({"name": getFilename(str), "extension": getFileextention(str)})
+}
+
+
+function removeLastUploadedFiles(file) {
+    removingData = new FormData()
+    removingData.append("filename", getFilename(file))
+    removingData.append("fileextension", getFileextention(file))
+
+    $.ajax({
+        type: "POST",
+        url: "deleteFiles.php",
+        data: removingData,
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        beforeSend: () => {
+            console.log("Запрос на удаление отправлен");
+
+        },
+
+        success: (data) => {
+            console.log("Запрос на удаление отработан");
+            // data - тут хранится всё что мы передали из php
+        },
+
+    })
+}
+
+
 $(document).ready(() => {
     $(".submitButton").click(() => {
 
@@ -12,13 +58,7 @@ $(document).ready(() => {
             formData.append("photo", photoInput.files[0])
             formData.append("size", 3)
             formData.append("orientation", 0)
-            console.log("Файлы найдены");
-            console.log(formData);
-            
-            // $.each(photoInput.files, (i, file) => {
-            //     console.log(i);
-            //     console.log(file);
-            // })
+
 
             $.ajax({
                 type: "POST",
@@ -32,17 +72,33 @@ $(document).ready(() => {
                     console.log("Запрос отправлен");
                     $(".submitButton").attr('disabled', true)
 
-                    // downloadButton.attr("hidden", true)
+
+                    // Удаление всех последних сделанных файлов
+                    if (localStorage.getItem("lastUploadedPhoto") != null) {
+                        removeLastUploadedFiles(localStorage.getItem("lastUploadedPhoto"))
+                        localStorage.removeItem("lastUploadedPhoto")
+
+                    }
 
                 },
 
                 success: (data) => {
-                    console.log("Запрос отработал");
+                    console.log("Запрос отработан");
                     console.log(data);
-                    $(".submitButton").attr('disabled', false)
-                    // downloadButton.removeAttr("hidden")
+                    setTimeout(() => {
+                        $(".submitButton").attr('disabled', false)
+                        
+                    }, 1000);
+
+                    $(".imageContainer")
+                    .css('background', "url(images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FINAL.jpg) left no-repeat")
+                    .css('background-size', 'contain')
                     
-                    // $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+                    $("#download").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FINAL.jpg")
+                    $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+
+                    // Добавляем название загруженного фото в localStorage
+                    localStorage.setItem("lastUploadedPhoto", photoInput.files[0].name)
                 }, 
 
             })
@@ -53,37 +109,20 @@ $(document).ready(() => {
 
     })
 
-    $(".deleteFiles").click(() => {
-        formData = new FormData()
-        formData.append("size", 3)
-        formData.append("orientation", 1)
 
-        $.ajax({
-            type: "POST",
-            url: "test.php",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
+    $(window).on("beforeunload", function() {
+        // Удаление всех последних сделанных файлов
+        if (localStorage.getItem("lastUploadedPhoto") != null) {
+            removeLastUploadedFiles(localStorage.getItem("lastUploadedPhoto"))
+            localStorage.removeItem("lastUploadedPhoto")
 
-            beforeSend: () => {
-                console.log("Запрос отправлен");
-                $(".submitButton").attr('disabled')
+        }
 
-            },
+	});
 
-            success: (data) => {
-                console.log("Запрос отработал");
-                console.log(data);
-                $(".submitButton").attr('disabled', false)
-                // data - тут хранится всё что мы передали из php
-            },
+})
 
-        })
-    })
-}
 
-)
 
 
 

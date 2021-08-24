@@ -60,6 +60,10 @@ button:hover {
     background: #4d69a0;
 }
 
+[disabled] {
+    background-color: gray;
+}
+
 a {
     font-family: Montserrat;
     font-weight: bold;
@@ -74,6 +78,6 @@ a {
     height: 400px;
     width: 700px;
     margin: auto 40px;
-    background: url("images/results/res.jpg") left no-repeat;
+    background: url("images/results/res.jpg") left contain no-repeat;
     background-size: contain;
 }

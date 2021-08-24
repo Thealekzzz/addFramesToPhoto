@@ -6,8 +6,6 @@ $framesDir = "images/frames/";
 $framesSize = ["20x16", "24x18", "36x24", "40x30"];
 $framesOrientation = ["vert", "horiz"];
 
-// , "OptionTypeImage (2).png", "OptionTypeImage (3).png", "OptionTypeImage (4).png", "OptionTypeImage (5).png", "OptionTypeImage (6).png"
-
 $uploadedFilename = "";  // Позже записываю название загруженного файла без расширения
 
 $gap = 20;  // Расстояния между блоками с картинками и текстом
@@ -39,7 +37,8 @@ if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES
     $photoPath = 'images/photos/'.$photoName;
     $photoType = mime_content_type($photoPath);
 
-    $uploadedFilename = pathinfo($photoName)['filename'];
+    $uploadedFilename = pathinfo($photoName)['filename']; // Имя файла без расширения
+    $currentDirectory = "images/results/" . $uploadedFilename . "/"; // Директория куда будут записаны все итоговые файлы
 } else {
     // echo "Файл не скопирован";
 }
@@ -70,6 +69,10 @@ imagefill($finalFile, 0, 0, imagecolorallocate($finalFile, 255, 255, 255));
 // var_dump($framesDir . $framesSize[$_POST["size"]] . "/" . $framesOrientation[$_POST["orientation"]] . "/" . $frameNames[0]);
 // var_dump($_POST);
 
+if (!file_exists($currentDirectory)) {
+    mkdir($currentDirectory, 0777, true);
+
+}
 
 foreach ($frameNames as $frameName) {
     // Путь к файлу в соответствующих папках размера и ориентации
@@ -180,7 +183,7 @@ foreach ($frameNames as $frameName) {
 
     
     // Сохранение сделанной картинки
-    // imagejpeg($blankImage, $resultName);
+    imagejpeg($blankImage, $currentDirectory . $uploadedFilename . "_" . $frameName);
 
 
 
@@ -191,10 +194,10 @@ foreach ($frameNames as $frameName) {
     imagedestroy($uploadedPhoto);
 }
 
-$resultName = 'images/results/' . substr($photoName, 0, -4) . '_' . "FINAL" . '.jpg';
+$resultName = $currentDirectory . $uploadedFilename . '_' . "FINAL" . '.jpg';
 imagejpeg($finalFile, $resultName);
 
-echo $uploadedFilename; // Отправляем только название файла
+// echo $uploadedFilename; // Отправляем только название файла
 
 imagedestroy($finalFile);
 
