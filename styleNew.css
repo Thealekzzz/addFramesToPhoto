@@ -15,10 +15,12 @@ body {
     height: 100vh;
     max-height: 100vh;
     /* overflow: hidden; */
+
+    position: relative;
 }
 
 main {
-    height: 90%;
+    height: 100%;
     display: grid;
     grid-template-columns: 300px 1fr;
 }
@@ -35,6 +37,9 @@ nav {
     font-size: 14px;
     text-transform: uppercase;
     font-weight: bold;
+
+    position: absolute;
+    top: 0;
 }
 
 .leftSide {
@@ -44,8 +49,9 @@ nav {
     box-shadow: 0 0 80px rgba(0, 0, 0, .04);
 
     padding: 30px;
+    padding-top: 80px;
 
-    position: relative;
+    /* position: relative; */
 
 }
 
@@ -55,11 +61,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.contactInfo div:last-child {
-    font-weight: bold;
-    font-size: 12px;
 }
 
 .photoContainer, .orientationContainer, .sizeContainer {
@@ -102,7 +103,7 @@ h2 {
     border-color: gray;
 }
 
-.orientation, .size{
+.orientation, .size, .buttonsContainer{
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
@@ -116,16 +117,21 @@ h2 {
 .imageContainer {
     border: 4px solid black;
     width: 50vw;
-    height: 25vw;
+    height: 35vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.imageContainerVertical {
+    width: 55vh;
+    height: 70vh;
+}
+
 .imageContainer span {
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 
@@ -135,5 +141,10 @@ h2 {
 .contactInfo {
     position: absolute;
     font-size: 10px;
-    bottom: 0;
+    bottom: 30px;
+}
+
+.contactInfo div div:last-child {
+    font-weight: bold;
+    font-size: 12px;
 }

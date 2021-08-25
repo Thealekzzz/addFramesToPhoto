@@ -7,7 +7,7 @@ $frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png
 $finalDirectory = "images/results/" . $_POST["filename"] . "/";
 // Пути дял всех файлов, которые надо удалить
 $uploadedPhotoPath = "images/photos/" . $_POST["filename"] . $_POST["fileextension"];
-$finalPhotoPath = $finalDirectory . $_POST["filename"] . "_FINAL.jpg";
+$finalPhotoPath = $finalDirectory . $_POST["filename"] . "_FRAMED.jpg";
 // Путь до отдельных файлов без названия рамки!
 $separatePhotoPath = $finalDirectory . $_POST["filename"];
 
