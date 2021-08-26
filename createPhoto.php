@@ -1,18 +1,30 @@
 <?php
 
+// var_dump(phpinfo());
+// phpinfo();
+// return 0;
+
+var_dump("step 0");
+
 $inputName = "photo";
 $frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 $framesDir = "images/frames/";
 $framesSize = ["20x16", "24x18", "36x24", "40x30"];
 $framesOrientation = ["vert", "horiz"];
 
+var_dump("step 1");
+
 $uploadedFilename = "";  // Позже записываю название загруженного файла без расширения
 $fontPath = __DIR__ . "/Montserrat-ExtraBold.ttf";
+
+var_dump("step 2");
 
 $factor = 2;  // Во сколько раз надо увеличить размер изображений с рамками
 $gap = 20 * $factor;  // Расстояния между блоками с картинками и текстом
 $nameMargin = 10 * $factor;  // Отступ от текста сверху
 $fontSize = 14 * $factor;  // Размер текста в пикселях(?)
+
+var_dump("step 3");
 
 $count = 0;  // Счетчик количества записанный в финальный файл картинок для корректной итоговой записи
 
@@ -24,8 +36,12 @@ $frameDefaultDimTemp = getimagesize($currentFramesDir . $frameNames[0]);
 $frameDefaultDim = [$frameDefaultDimTemp[0] * $factor, $frameDefaultDimTemp[1] * $factor];
 unset($frameDefaultDimTemp);
 
+var_dump("step 4");
+
 // Сохраняю файл на сервер и сохраняю нужную инфу
 if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES[$inputName]["name"])) {
+    var_dump("step 5");
+
     $uploadedPhotoName = $_FILES[$inputName]["name"]; // Название фото с расширением
     $uploadedPhotoNameWoE = pathinfo($uploadedPhotoName)['filename']; // Название фото без расширения
 
@@ -37,6 +53,7 @@ if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES
 
 } else {
     // echo "Файл не скопирован";
+    var_dump("перемещение файла не удалось");
     return 0;
 }
 
@@ -51,11 +68,21 @@ switch ($uploadedPhotoType) {
         $uploadedPhoto = imagecreatefromjpeg($uploadedPhotoPath);
         break;
 
+    case "image/webp":
+        $uploadedPhoto = imagecreatefromwebp($uploadedPhotoPath);
+        break;
+
+    case "image/wbmp":
+        $uploadedPhoto = imagecreatefromwbmp($uploadedPhotoPath);
+        break;
+
     default:
         var_dump("Ошибка: Формат файла не распознан");
         return 0;
 
 }
+
+var_dump("step 6");
 
 
 // Если фото горизонтальное, делаю константы для итогового фото
@@ -71,6 +98,8 @@ if ($_POST["orientation"]) {
 
 }
 
+var_dump("step 7");
+
 
 // Создаю итоговую картинку и заливаю её белым цветом
 $destinationFile = imagecreatetruecolor($destinationPhotoDim[0], $destinationPhotoDim[1]);
@@ -83,6 +112,8 @@ $color = imagecolorallocate($destinationFile, 30, 30, 30);
 if (!file_exists($destinationDirectory)) {
     mkdir($destinationDirectory, 0777, true);
 }
+
+var_dump("step 8");
 
 
 // Создаю объект для фото рамок в цикле
@@ -149,6 +180,8 @@ foreach ($frameNames as $frameName) {
 
     imagejpeg($framePhoto, $destinationDirectory . $uploadedPhotoNameWoE . "_" . $frameName);
 }
+
+var_dump("step 9");
 
 imagejpeg($destinationFile, $destinationDirectory . $uploadedPhotoNameWoE . "_FRAMED.jpg");
 

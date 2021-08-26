@@ -44,6 +44,10 @@ nav {
     top: 0;
 }
 
+[alt="www.000webhost.com"] {
+    height: 0;
+}
+
 .leftSide {
     width: 300px;
     height: 100%;
