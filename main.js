@@ -43,12 +43,14 @@ const frameNames = ["brazilian barnwood.png", "classic black.png", "classic brow
 
 let sizeNum = "1"
 let orientationNum = "0";
+let downloadToggleState = true
 
 const pickButton = $(".pickPhoto")
 const sizeButtons = $("[data-size]")
 const orientationButtons = $("[data-orientation]")
 
 const imageContainer = document.querySelector(".imageContainer")
+const attention = document.querySelector(".attention")
 
 sizeButtons.each(i => {
     sizeButtons[i].addEventListener("click", () => {
@@ -80,6 +82,27 @@ $("#photoInput").change(() => {
 
 
 $(document).ready(() => {
+    // Показ сообщения о загрузке файлов не более 8Мб
+    $(".pickPhoto").mouseenter(() => {
+        attention.classList.remove("invisible")
+    })
+
+    $(".pickPhoto").mouseleave(() => {
+        attention.classList.add("invisible")
+    })
+
+    // Выбор, скачивать ли фото по готовности
+    $(".toggle").click(() => {
+        downloadToggleState = !downloadToggleState
+        $(".toggleSwitcher").toggleClass("toggleSwitcherOff")
+    })
+
+    // Нажатие кнопки скачивания
+    $(".downloadButton").click(() => {
+        $("#download")[0].click() // Отвечает за  скачивание финальной фотки
+
+    })
+
     // Нажата кнопка сгенерировать
     $(".submitButton").click(() => {
 
@@ -107,6 +130,7 @@ $(document).ready(() => {
                 beforeSend: () => {
                     console.log("Запрос отправлен");
                     $(".submitButton").attr('disabled', true)
+                    $(".downloadButton").attr('disabled', true)
 
 
                     // Удаление всех последних сделанных файлов
@@ -124,7 +148,7 @@ $(document).ready(() => {
                     setTimeout(() => {
                         $(".submitButton").attr('disabled', false)
                         
-                    }, 1000);
+                    }, 2000);
                     
                     $(".imageContainer").css('background', "")
 
@@ -144,7 +168,11 @@ $(document).ready(() => {
                     $(".imageContainer span").attr("hidden", true)
                     
                     $("#download").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FRAMED.jpg")
-                    $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+                    if (downloadToggleState) {
+                        $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+
+                    }
+                    $(".downloadButton").attr('disabled', false)
 
                     // Добавляем название загруженного фото в localStorage
                     localStorage.setItem("lastUploadedPhoto", photoInput.files[0].name)

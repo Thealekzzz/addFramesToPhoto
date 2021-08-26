@@ -27,6 +27,10 @@
             <div class="photoContainer">
                 <h2>Фото</h2>
                 <div class="button pickPhoto">Добавить</div>
+                <div class="attention invisible">
+                    <img src="src/img/attention.png" alt="Внимание">
+                    <span>Не загружай фото тяжелее 8Мб</span>
+                </div>
                 <input type="file" name="photo" id="photoInput" hidden>
             </div>
 
@@ -70,8 +74,20 @@
             </div>
 
             <div class="buttonsContainer">
+                <div class="downloadToggleContainer">
+                    <span>Скачать по готовности</span>
+                    <div class="downloadToggle toggle">
+                        <div class="toggleSwitcher"></div>
+                    </div>
+                </div>
+
                 <button class="submitButton button" type="button">Сгенерировать</button>
-                <button class="downloadButton" hidden type="button"><a href="images/results/res.jpg" id="download" download>Скачать</a></button>
+
+                <button class="downloadButton button" type="button" disabled>Скачать</button>
+
+                <a href="images/results/res.jpg" id="download" download hidden>Скачать</a>
+                
+                    
                 
                 <!-- <button class="DEBUG button">DEBUG</button> -->
 

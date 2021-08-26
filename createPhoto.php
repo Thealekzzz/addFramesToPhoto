@@ -99,7 +99,7 @@ foreach ($frameNames as $frameName) {
     $frameWidth = 5;
     while (imagecolorat($framePhotoTemp, 40, $frameWidth) < 2130706400) {
         $frameWidth++;
-        if ($frameWidth > 30) {
+        if ($frameWidth > 40) {
             $frameWidth = 7;
             break;
         }
