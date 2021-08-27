@@ -49,7 +49,8 @@ nav {
 }
 
 .leftSide {
-    width: 300px;
+    /* width: 300px; */
+    width: 100%;
     height: 100%;
     background-color: white;
     box-shadow: 0 0 80px rgba(0, 0, 0, .04);
@@ -225,4 +226,30 @@ h2 {
 .contactInfo div div:last-child {
     font-weight: bold;
     font-size: 12px;
+}
+
+
+
+@media (max-width: 600px) {
+    .rightSide {
+        display: none;
+
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        justify-content: center;
+    }
+
+    .lefsideInner {
+        width: 300px;
+        margin: 0 auto;
+    }
+
+    .attention {
+        top: 80px;
+        left: 0;
+    }
+
+
 }
