@@ -11,6 +11,12 @@ $frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png
 $framesDir = "images/frames/";
 $framesSize = ["20x16", "24x18", "36x24", "40x30"];
 $framesOrientation = ["vert", "horiz"];
+$frameWidths = [
+    [[27,26,30,32,17,17,17],[33,32,38,40,21,21,21]],
+    [[23,22,25,27,14,14,13],[30,29,33,36,18,19,19]],
+    [[15,15,16,18,9,9,9],[20,20,21,25,12,12,12]],
+    [[14,13,14,17,8,8,8],[18,18,19,22,11,11,11]]
+]; // Ширины каждой рамки
 
 var_dump("step 1");
 
@@ -119,7 +125,7 @@ var_dump("step 8");
 // Создаю объект для фото рамок в цикле
 $framePhoto = imagecreatetruecolor($frameDefaultDim[0], $frameDefaultDim[1]);
 
-foreach ($frameNames as $frameName) {
+foreach ($frameNames as $frameNumber => $frameName) {
     $currentFramePhotoPath = $currentFramesDir . $frameName; // Путь к текущей рамке
     $framePhotoDim = getimagesize($currentFramePhotoPath);
 
@@ -127,15 +133,18 @@ foreach ($frameNames as $frameName) {
     $framePhotoTemp = imagecreatefrompng($currentFramePhotoPath);
 
     // Вычисляем ширину рамки (самой доски то есть)
-    $frameWidth = 5;
-    while (imagecolorat($framePhotoTemp, 40, $frameWidth) < 2130706400) {
-        $frameWidth++;
-        if ($frameWidth > 40) {
-            $frameWidth = 7;
-            break;
-        }
-    }
-    $frameWidth -= 1; // На всякий случай
+    // $frameWidth = 5;
+    // while (imagecolorat($framePhotoTemp, 40, $frameWidth) < 2130706400) {
+    //     $frameWidth++;
+    //     if ($frameWidth > 40) {
+    //         $frameWidth = 7;
+    //         break;
+    //     }
+    // }
+    // $frameWidth -= 1; // На всякий случай
+
+    $frameWidth = $frameWidths[$_POST["size"]][$_POST["orientation"]][$frameNumber];
+    var_dump($frameWidth);
     $frameWidth *= $factor; // Чтобы пропорционально увеличивать отступы
 
 

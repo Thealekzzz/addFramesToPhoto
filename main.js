@@ -203,14 +203,12 @@ $(document).ready(() => {
     $(".DEBUG").click(() => {
         if (photoInput.files.length != 0) {
             formData = new FormData()
-            formData.append("photo", photoInput.files[0])
             formData.append("size", sizeNum)
             formData.append("orientation", orientationNum)
 
-
             $.ajax({
                 type: "POST",
-                url: "createPhoto.php",
+                url: "countWidths.php",
                 data: formData,
                 cache: false,
                 contentType: false,
@@ -219,12 +217,6 @@ $(document).ready(() => {
                 beforeSend: () => {
                     console.log("Запрос DEBUG отправлен");
                     $(".DEBUG").attr('disabled', true)
-
-                    if (localStorage.getItem("lastUploadedPhoto") != null) {
-                        removeLastUploadedFiles(localStorage.getItem("lastUploadedPhoto"))
-                        localStorage.removeItem("lastUploadedPhoto")
-
-                    }
 
                 },
 
@@ -235,16 +227,15 @@ $(document).ready(() => {
                         $(".DEBUG").attr('disabled', false)
                         
                     }, 1000);
-
-
-                    // Добавляем название загруженного фото в localStorage
-                    localStorage.setItem("lastUploadedPhoto", photoInput.files[0].name)
                     
                 }, 
 
             })
+
         }
+
     })
+
 })
 
 
