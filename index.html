@@ -29,7 +29,7 @@
                 <div class="photoContainer">
                     <h2>Фото</h2>
                     <div class="button pickPhoto">Добавить</div>
-                    <div class="attention invisible">
+                    <div class="attention message invisible">
                         <img src="src/img/attention.png" alt="Внимание">
                         <span>Не загружай фото тяжелее 8Мб</span>
                     </div>
@@ -87,12 +87,34 @@
 
                     <button class="downloadButton button" type="button" disabled>Скачать</button>
 
-                    <a href="images/results/res.jpg" id="download" download hidden>Скачать</a>
-                    
-                        
+                    <a href="images/results/res.jpg" id="download" download hidden>Скачать</a>                      
                     
                     <!-- <button class="DEBUG button">DEBUG</button> -->
 
+                </div>
+
+                
+                    
+                <div class="separateDownloadContainer">
+                    <select name="choosePhoto" id="choosePhoto">
+                        <option value="0">brazilian barnwood</option>
+                        <option value="1">classic black</option>
+                        <option value="2">classic brown</option>
+                        <option value="3">metallic silver</option>
+                        <option value="4">modern black</option>
+                        <option value="5">modern brown</option>
+                        <option value="6">modern white</option>
+                    </select>
+
+                    <button class="separateDownloadButton button" disabled></button>
+
+                    <a href="images/results/res.jpg" id="sepDownload" download hidden>Скачать</a>
+
+                    <div class="message sepInfo invisible">
+                        <!-- <img src="src/img/arrow.png" alt="Стрелка"> -->
+                        <span>Здесь можно скачать любое фото отдельно</span>
+                        <img src="src/img/check.png" alt="Кнопка согласиться">
+                    </div>
                 </div>
 
                 <div class="contactInfo">

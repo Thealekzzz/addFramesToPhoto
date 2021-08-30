@@ -144,7 +144,6 @@ foreach ($frameNames as $frameNumber => $frameName) {
     // $frameWidth -= 1; // На всякий случай
 
     $frameWidth = $frameWidths[$_POST["size"]][$_POST["orientation"]][$frameNumber];
-    var_dump($frameWidth);
     $frameWidth *= $factor; // Чтобы пропорционально увеличивать отступы
 
 

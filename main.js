@@ -103,6 +103,19 @@ $(document).ready(() => {
 
     })
 
+    // Нажатие галочки на сообщении
+    $(".sepInfo img").click(() => {
+        $(".sepInfo").addClass("invisible")
+        localStorage.setItem("sepInfoMessage", true)
+    })
+
+    // Нажатие кнопки отдельного скачивания
+    $(".separateDownloadButton").click(() => {
+        $("#sepDownload").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_" + frameNames[$("#choosePhoto").val()])
+        $("#sepDownload")[0].click()
+
+    })
+
     // Нажата кнопка сгенерировать
     $(".submitButton").click(() => {
 
@@ -131,6 +144,7 @@ $(document).ready(() => {
                     console.log("Запрос отправлен");
                     $(".submitButton").attr('disabled', true)
                     $(".downloadButton").attr('disabled', true)
+                    $(".separateDownloadButton").attr('disabled', true)
 
 
                     // Удаление всех последних сделанных файлов
@@ -148,7 +162,7 @@ $(document).ready(() => {
                     setTimeout(() => {
                         $(".submitButton").attr('disabled', false)
                         
-                    }, 2000);
+                    }, 1000);
                     
                     $(".imageContainer").css('background', "")
 
@@ -173,6 +187,12 @@ $(document).ready(() => {
 
                     }
                     $(".downloadButton").attr('disabled', false)
+                    $(".separateDownloadButton").attr('disabled', false)
+
+                    // Если сообщение о раздельном скачивании еще не было показано - показать
+                    if (localStorage["sepInfoMessage"] == undefined) {
+                        $(".sepInfo").removeClass("invisible")
+                    }
 
                     // Добавляем название загруженного фото в localStorage
                     localStorage.setItem("lastUploadedPhoto", photoInput.files[0].name)
