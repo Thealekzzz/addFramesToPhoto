@@ -181,7 +181,7 @@ option {
     padding: 10px 10px;
     position: absolute;
 
-    transition: opacity .2s;
+    transition: all .2s;
 
     background-color: white;
     box-shadow: 0 0 30px rgba(0, 0, 0, .12);
@@ -211,6 +211,12 @@ option {
 
 .invisible {
     opacity: 0;
+    transform: translateY(10px);
+
+}
+
+.notDisplayed {
+    display: none;
 }
 
 .downloadToggleContainer {
@@ -265,6 +271,7 @@ option {
     font-weight: bold;
     font-size: 12px;
 }
+
 
 
 

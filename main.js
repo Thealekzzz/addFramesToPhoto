@@ -39,6 +39,23 @@ function removeLastUploadedFiles(file) {
 }
 
 
+function addAnimationClasses(obj, before="invisible", after="notDisplayed", condition="invisible") {
+    if (obj.hasClass(condition)) {
+        obj.removeClass(after)
+        setTimeout(() => {
+            obj.removeClass(before)
+        }, 10);
+
+    } else {
+        obj.addClass(before)
+        setTimeout(() => {
+            obj.addClass(after)
+        }, 300);
+
+    }
+}
+
+
 const frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 
 let sizeNum = "1"
@@ -50,7 +67,6 @@ const sizeButtons = $("[data-size]")
 const orientationButtons = $("[data-orientation]")
 
 const imageContainer = document.querySelector(".imageContainer")
-const attention = document.querySelector(".attention")
 
 sizeButtons.each(i => {
     sizeButtons[i].addEventListener("click", () => {
@@ -84,11 +100,17 @@ $("#photoInput").change(() => {
 $(document).ready(() => {
     // Показ сообщения о загрузке файлов не более 8Мб
     $(".pickPhoto").mouseenter(() => {
-        attention.classList.remove("invisible")
+        $(".attention").removeClass("notDisplayed")
+        setTimeout(() => {
+            $(".attention").removeClass("invisible")
+        }, 10);
     })
 
     $(".pickPhoto").mouseleave(() => {
-        attention.classList.add("invisible")
+        $(".attention").addClass("invisible")
+        setTimeout(() => {
+            $(".attention").addClass("notDisplayed")
+        }, 300);
     })
 
     // Выбор, скачивать ли фото по готовности
@@ -106,6 +128,9 @@ $(document).ready(() => {
     // Нажатие галочки на сообщении
     $(".sepInfo img").click(() => {
         $(".sepInfo").addClass("invisible")
+        setTimeout(() => {
+            $(".sepInfo").addClass("notDisplayed")
+        }, 300);
         localStorage.setItem("sepInfoMessage", true)
     })
 
@@ -191,7 +216,10 @@ $(document).ready(() => {
 
                     // Если сообщение о раздельном скачивании еще не было показано - показать
                     if (localStorage["sepInfoMessage"] == undefined) {
-                        $(".sepInfo").removeClass("invisible")
+                        $(".sepInfo").removeClass("notDisplayed")
+                        setTimeout(() => {
+                            $(".sepInfo").removeClass("invisible")
+                        }, 10);
                     }
 
                     // Добавляем название загруженного фото в localStorage
@@ -221,38 +249,8 @@ $(document).ready(() => {
 
     // Нажатие кнопки dEBUG
     $(".DEBUG").click(() => {
-        if (photoInput.files.length != 0) {
-            formData = new FormData()
-            formData.append("size", sizeNum)
-            formData.append("orientation", orientationNum)
 
-            $.ajax({
-                type: "POST",
-                url: "countWidths.php",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
 
-                beforeSend: () => {
-                    console.log("Запрос DEBUG отправлен");
-                    $(".DEBUG").attr('disabled', true)
-
-                },
-
-                success: (data) => {
-                    console.log("Запрос DEBUG отработан");
-                    console.log(data);
-                    setTimeout(() => {
-                        $(".DEBUG").attr('disabled', false)
-                        
-                    }, 1000);
-                    
-                }, 
-
-            })
-
-        }
 
     })
 
