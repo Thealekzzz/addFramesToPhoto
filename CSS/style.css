@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    font-family: "monsterrat", sans-serif;
+    
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    height: 50px;
+    background-color: #232323;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+
+}
+
+nav span {
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+
+}
+
+section {
+    margin-top: 80px;
+}
+
+.container {
+    width: 900px;
+    margin: 0 auto;
+    /* border: 1px solid black; */
+}
+
+.title h2 {
+    font-weight: bold;
+    margin: 0;
+
+}
+
