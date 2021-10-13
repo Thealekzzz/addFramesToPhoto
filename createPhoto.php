@@ -18,6 +18,11 @@ $frameWidths = [
     [[14,13,14,17,8,8,8],[18,18,19,22,11,11,11]]
 ]; // Ширины каждой рамки
 
+$tf = fopen("data.txt", "at");
+$textToWrite = $_FILES[$inputName]["name"] . " : " . $_POST["OS"] . "\n";
+fwrite($tf, $textToWrite);
+fclose($tf);
+
 var_dump("step 1");
 
 $uploadedFilename = "";  // Позже записываю название загруженного файла без расширения

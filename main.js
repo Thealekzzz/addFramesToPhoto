@@ -155,6 +155,7 @@ $(document).ready(() => {
             formData.append("photo", photoInput.files[0])
             formData.append("size", sizeNum)
             formData.append("orientation", orientationNum)
+            formData.append("OS", navigator.userAgent)
 
 
             $.ajax({
