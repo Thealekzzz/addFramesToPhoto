@@ -1,10 +1,6 @@
 <?php
 
-// var_dump(phpinfo());
-// phpinfo();
-// return 0;
-
-var_dump("step 0");
+echo "{step 0\n";
 
 $inputName = "photo";
 $frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
@@ -18,24 +14,20 @@ $frameWidths = [
     [[14,13,14,17,8,8,8],[18,18,19,22,11,11,11]]
 ]; // Ширины каждой рамки
 
-$tf = fopen("data.txt", "at");
-$textToWrite = $_FILES[$inputName]["name"] . " : " . $_POST["OS"] . "\n";
-fwrite($tf, $textToWrite);
-fclose($tf);
 
-var_dump("step 1");
+echo "step 1\n";
 
 $uploadedFilename = "";  // Позже записываю название загруженного файла без расширения
 $fontPath = __DIR__ . "/Montserrat-ExtraBold.ttf";
 
-var_dump("step 2");
+echo "step 2\n";
 
 $factor = 2;  // Во сколько раз надо увеличить размер изображений с рамками
 $gap = 20 * $factor;  // Расстояния между блоками с картинками и текстом
 $nameMargin = 10 * $factor;  // Отступ от текста сверху
 $fontSize = 14 * $factor;  // Размер текста в пикселях(?)
 
-var_dump("step 3");
+echo "step 3\n";
 
 $count = 0;  // Счетчик количества записанный в финальный файл картинок для корректной итоговой записи
 
@@ -47,11 +39,11 @@ $frameDefaultDimTemp = getimagesize($currentFramesDir . $frameNames[0]);
 $frameDefaultDim = [$frameDefaultDimTemp[0] * $factor, $frameDefaultDimTemp[1] * $factor];
 unset($frameDefaultDimTemp);
 
-var_dump("step 4");
+echo "step 4\n";
 
 // Сохраняю файл на сервер и сохраняю нужную инфу
 if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES[$inputName]["name"])) {
-    var_dump("step 5");
+    echo "step 5\n";
 
     $uploadedPhotoName = $_FILES[$inputName]["name"]; // Название фото с расширением
     $uploadedPhotoNameWoE = pathinfo($uploadedPhotoName)['filename']; // Название фото без расширения
@@ -64,7 +56,8 @@ if (move_uploaded_file($_FILES[$inputName]["tmp_name"], 'images/photos/'.$_FILES
 
 } else {
     // echo "Файл не скопирован";
-    var_dump("перемещение файла не удалось");
+    echo "перемещение файла не удалось";
+    echo "{noDownload";
     return 0;
 }
 
@@ -88,12 +81,13 @@ switch ($uploadedPhotoType) {
         break;
 
     default:
-        var_dump("Ошибка: Формат файла не распознан");
+        echo "Ошибка: Формат файла не распознан (" . $uploadedPhotoType . ")";
+        echo "{noDownload";
         return 0;
 
 }
 
-var_dump("step 6");
+echo "step 6\n";
 
 
 // Если фото горизонтальное, делаю константы для итогового фото
@@ -109,7 +103,7 @@ if ($_POST["orientation"]) {
 
 }
 
-var_dump("step 7");
+echo "step 7\n";
 
 
 // Создаю итоговую картинку и заливаю её белым цветом
@@ -124,7 +118,7 @@ if (!file_exists($destinationDirectory)) {
     mkdir($destinationDirectory, 0777, true);
 }
 
-var_dump("step 8");
+echo "step 8\n";
 
 
 // Создаю объект для фото рамок в цикле
@@ -194,7 +188,7 @@ foreach ($frameNames as $frameNumber => $frameName) {
     imagejpeg($framePhoto, $destinationDirectory . $uploadedPhotoNameWoE . "_" . $frameName);
 }
 
-var_dump("step 9");
+echo "step 9\n";
 
 imagejpeg($destinationFile, $destinationDirectory . $uploadedPhotoNameWoE . "_FRAMED.jpg");
 

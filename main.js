@@ -56,6 +56,34 @@ function addAnimationClasses(obj, before="invisible", after="notDisplayed", cond
 }
 
 
+function invalidPhoto(msg) {
+    offsets = [-30, 20, -15, 10, -6, 4, -2, 1, 0]
+    pickButton[0].style.borderColor = "red"
+    pickButton[0].style.color = "red"
+    iter = 0
+
+    console.log(msg);
+
+    temp = setInterval(() => {
+        if (iter < offsets.length) {
+            pickButton[0].style.transform = "translateX(" + offsets[iter] + "px)"
+        } else {
+            clearInterval(temp)
+        }
+        
+        iter++
+
+    }, 80);
+
+    setTimeout(() => {
+        pickButton[0].style.borderColor = "black"
+        pickButton[0].style.color = "black"
+    }, offsets.length * 80);
+}
+
+
+let TEMPSTR
+
 const frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 
 let sizeNum = "1"
@@ -167,7 +195,7 @@ $(document).ready(() => {
                 processData: false,
 
                 beforeSend: () => {
-                    console.log("Запрос отправлен");
+                    // console.log("Запрос отправлен");
                     $(".submitButton").attr('disabled', true)
                     $(".downloadButton").attr('disabled', true)
                     $(".separateDownloadButton").attr('disabled', true)
@@ -183,44 +211,52 @@ $(document).ready(() => {
                 },
 
                 success: (data) => {
-                    console.log("Запрос отработан");
-                    console.log(data);
-                    setTimeout(() => {
-                        $(".submitButton").attr('disabled', false)
-                        
-                    }, 1000);
-                    
-                    $(".imageContainer").css('background', "")
+                    // console.log("Запрос отработан");
+                    dataBack = data.split("{")
+                    console.log(dataBack[1]);
 
-                    $(".imageContainer")
-                    .css('background', "url('images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FRAMED.jpg') center no-repeat")
-                    .css('background-size', 'contain')
-
-                    if (orientationNum == "1") {
-                        // Выбрана горизонтальная картинка. Делаю вертикальное поле
-                        imageContainer.classList.add("imageContainerVertical")
-                    } else {
-                        // Выбрана вертикальная картинка. Делаю горизонтальное поле
-                        imageContainer.classList.remove("imageContainerVertical")
-                    }
-                    
-
-                    $(".imageContainer span").attr("hidden", true)
-                    
-                    $("#download").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FRAMED.jpg")
-                    if (downloadToggleState) {
-                        $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
-
-                    }
-                    $(".downloadButton").attr('disabled', false)
-                    $(".separateDownloadButton").attr('disabled', false)
-
-                    // Если сообщение о раздельном скачивании еще не было показано - показать
-                    if (localStorage["sepInfoMessage"] == undefined) {
-                        $(".sepInfo").removeClass("notDisplayed")
+                    if (dataBack.length <= 2) {
                         setTimeout(() => {
-                            $(".sepInfo").removeClass("invisible")
-                        }, 10);
+                            $(".submitButton").attr('disabled', false)
+                            
+                        }, 1000);
+                        
+                        $(".imageContainer").css('background', "")
+
+                        $(".imageContainer")
+                        .css('background', "url('images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FRAMED.jpg') center no-repeat")
+                        .css('background-size', 'contain')
+
+                        if (orientationNum == "1") {
+                            // Выбрана горизонтальная картинка. Делаю вертикальное поле
+                            imageContainer.classList.add("imageContainerVertical")
+                        } else {
+                            // Выбрана вертикальная картинка. Делаю горизонтальное поле
+                            imageContainer.classList.remove("imageContainerVertical")
+                        }
+                        
+
+                        $(".imageContainer span").attr("hidden", true)
+                        
+                        $("#download").attr("href", "images/results/" + getFilename(photoInput.files[0].name) + "/" + getFilename(photoInput.files[0].name) + "_FRAMED.jpg")
+                        if (downloadToggleState) {
+                            $("#download")[0].click() // Отвечает за мгновенное скачивание финальной фотки
+
+                        }
+                        $(".downloadButton").attr('disabled', false)
+                        $(".separateDownloadButton").attr('disabled', false)
+
+                        // Если сообщение о раздельном скачивании еще не было показано - показать
+                        if (localStorage["sepInfoMessage"] == undefined) {
+                            $(".sepInfo").removeClass("notDisplayed")
+                            setTimeout(() => {
+                                $(".sepInfo").removeClass("invisible")
+                            }, 10);
+
+                        }
+                        
+                    } else {
+                        invalidPhoto("Фото неверного расширения")
                     }
 
                     // Добавляем название загруженного фото в localStorage
@@ -230,7 +266,7 @@ $(document).ready(() => {
             })
         } else {
             // НЕ ВЫБРАНЫ ФАЙЛЫ И НАЖАТА КНОПКА
-            console.log("Не выбраны файлы. Запрос не отправлен");
+            invalidPhoto("Не выбрано фото")
         }
 
     })
