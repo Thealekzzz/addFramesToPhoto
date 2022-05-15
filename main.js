@@ -39,6 +39,28 @@ function removeLastUploadedFiles(file) {
 }
 
 
+function removeAllImages() {
+    $.ajax({
+        type: "POST",
+        url: "clearImages.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        beforeSend: () => {
+            console.log("Запрос на удаление отправлен");
+
+        },
+
+        success: (data) => {
+            console.log("Запрос на удаление отработан");
+            console.log(data);
+            // data - тут хранится всё что мы передали из php
+        },
+    })
+}
+
+
 function addAnimationClasses(obj, before="invisible", after="notDisplayed", condition="invisible") {
     if (obj.hasClass(condition)) {
         obj.removeClass(after)
