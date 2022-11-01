@@ -1,5 +1,11 @@
 <?php
 
+// Этот php создан для удаления конкретной картинки, загруженной пользователем и всех сгенерированных на ее основе картинок
+// Он запускается автоматически, когда пользователь уходит со страницы или обновляет ее.
+// Но почему-то это иногда не срабатывает, фотки не удаляются и на сервере скапливается мусор.
+// Для удаления всего этого мусора есть файл clearImages.php. Для его запуска в main.js есть функция removeAllImages()
+
+
 // var_dump($_POST);
 $frameNames = ["brazilian barnwood.png", "classic black.png", "classic brown.png", "metallic silver.png", "modern black.png", "modern brown.png", "modern white.png"];
 
